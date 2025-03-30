@@ -2,6 +2,8 @@
 
 A simple chess game that runs in the browser. Play against a friend on the same device.
 
+This was made 100% by [Penguin](https://github.com/Maximooch/penguin). You can see the [conversation](session_20250330_002611_33441eef.json) log file for how 
+
 ## Features
 
 - Full chess rules implementation
