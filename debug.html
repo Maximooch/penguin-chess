@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chess Game Debug</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        .test-result {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .pass {
+            background-color: #dff0d8;
+            border: 1px solid #d6e9c6;
+        }
+        .fail {
+            background-color: #f2dede;
+            border: 1px solid #ebccd1;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px 0;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h1>Chess Game Debug Tool</h1>
+    <p>This tool checks if all required components are loaded correctly.</p>
+    
+    <button id="run-tests">Run Diagnostics</button>
+    
+    <div id="test-results"></div>
+    
+    <script>
+        document.getElementById('run-tests').addEventListener('click', runTests);
+        
+        function runTests() {
+            const resultsDiv = document.getElementById('test-results');
+            resultsDiv.innerHTML = '<h2>Test Results:</h2>';
+            
+            // Test 1: Check if all JS files are loaded
+            const requiredScripts = [
+                'chess-logic.js',
+                'chess-pieces.js',
+                'chess-mechanics.js',
+                'ui.js',
+                'app.js'
+            ];
+            
+            const loadedScripts = Array.from(document.scripts)
+                .map(script => {
+                    const src = script.src;
+                    const match = src.match(/\/js\/([^\/]+)$/);
+                    return match ? match[1] : null;
+                })
+                .filter(Boolean);
+            
+            const missingScripts = requiredScripts.filter(script => !loadedScripts.includes(script));
+            
+            addTestResult(
+                'JavaScript Files',
+                missingScripts.length === 0,
+                missingScripts.length === 0 
+                    ? 'All required JavaScript files are loaded.' 
+                    : `Missing scripts: ${missingScripts.join(', ')}`
+            );
+            
+            // Test 2: Check if CSS is loaded
+            const styleSheets = Array.from(document.styleSheets)
+                .map(sheet => {
+                    const href = sheet.href || '';
+                    const match = href.match(/\/css\/([^\/]+)$/);
+                    return match ? match[1] : null;
+                })
+                .filter(Boolean);
+            
+            addTestResult(
+                'CSS Files',
+                styleSheets.includes('style.css'),
+                styleSheets.includes('style.css') 
+                    ? 'CSS file is loaded correctly.' 
+                    : 'Missing style.css file.'
+            );
+            
+            // Test 3: Check if ChessGame class exists
+            const chessGameExists = typeof ChessGame === 'function';
+            addTestResult(
+                'ChessGame Class',
+                chessGameExists,
+                chessGameExists 
+                    ? 'ChessGame class is defined.' 
+                    : 'ChessGame class is not defined. Check chess-logic.js.'
+            );
+            
+            // Test 4: Check if ChessUI class exists
+            const chessUIExists = typeof ChessUI === 'function';
+            addTestResult(
+                'ChessUI Class',
+                chessUIExists,
+                chessUIExists 
+                    ? 'ChessUI class is defined.' 
+                    : 'ChessUI class is not defined. Check ui.js.'
+            );
+            
+            // Test 5: Check if board element exists
+            const boardExists = document.getElementById('chessboard') !== null;
+            addTestResult(
+                'Chessboard Element',
+                boardExists,
+                boardExists 
+                    ? 'Chessboard element exists in the DOM.' 
+                    : 'Chessboard element is missing. Check your HTML.'
+            );
+            
+            // Final result
+            const allPassed = resultsDiv.querySelectorAll('.fail').length === 0;
+            
+            resultsDiv.innerHTML += `
+                <div class="test-result ${allPassed ? 'pass' : 'fail'}">
+                    <h3>Overall Result: ${allPassed ? 'PASS' : 'FAIL'}</h3>
+                    <p>${allPassed 
+                        ? 'All tests passed! The chess game should work correctly.' 
+                        : 'Some tests failed. Please fix the issues above.'}</p>
+                </div>
+            `;
+        }
+        
+        function addTestResult(name, passed, message) {
+            const resultsDiv = document.getElementById('test-results');
+            resultsDiv.innerHTML += `
+                <div class="test-result ${passed ? 'pass' : 'fail'}">
+                    <h3>${name}: ${passed ? 'PASS' : 'FAIL'}</h3>
+                    <p>${message}</p>
+                </div>
+            `;
+        }
+    </script>
+    
+    <!-- Load the chess game scripts for testing -->
+    <script src="js/chess-logic.js"></script>
+    <script src="js/chess-pieces.js"></script>
+    <script src="js/chess-mechanics.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
