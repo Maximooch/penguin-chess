@@ -2,8 +2,7 @@
 
 A simple chess game that runs in the browser. Play against a friend on the same device.
 
-This was made 100% by [Penguin](https://github.com/Maximooch/penguin). You can see the [conversation](session_20250330_002611_33441eef.json) log file for how 
-
+This was made 100% by [Penguin](https://github.com/Maximooch/penguin). You can see the [conversation](session_20250330_002611_33441eef.json) log file for how it was built.
 ## Features
 
 - Full chess rules implementation
@@ -43,3 +42,9 @@ The code is organized into several modules:
 - `ui.js`: User interface and interaction handling
 - `app.js`: Main application entry point
 # penguin-chess
+
+## Notes
+
+- Board coordinates are displayed on the board edges via CSS only.
+- Configure server port: `PORT=8080 python server.py`
+- Disable auto-opening browser: `OPEN_BROWSER=0 python server.py`

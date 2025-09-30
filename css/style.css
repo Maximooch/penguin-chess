@@ -222,3 +222,7 @@ button:hover {
 #chessboard .square:nth-child(62)::after { content: "f"; }
 #chessboard .square:nth-child(63)::after { content: "g"; }
 #chessboard .square:nth-child(64)::after { content: "h"; }
+
+/* Accessibility: visible focus outlines for keyboard users */
+:focus-visible { outline: 2px dashed #222; outline-offset: 2px; }
+.controls button:focus-visible { box-shadow: 0 0 0 3px rgba(76,175,80,0.35); }
