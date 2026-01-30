@@ -1,8 +1,4 @@
-//
-        
-        // Generate algebraic notation
-        const lastMove = this.moveHistory[this.moveHistory.length - 1];
-        lastMove.algebraic = this.generateAlgebraicNotation(lastMove); Chess Logic Module
+// Chess Logic Module
 class ChessGame {
     constructor() {
         this.initialize();
@@ -198,68 +194,6 @@ class ChessGame {
         this.updateGameState();
         
         return true;
-    }
-
-    // Generate algebraic notation for a move
-    generateAlgebraicNotation(move) {
-        const piece = move.piece;
-        const from = this.coordsToAlgebraic(move.from.row, move.from.col);
-        const to = this.coordsToAlgebraic(move.to.row, move.to.col);
-        
-        let notation = '';
-        
-        // Piece symbol (except pawns)
-        if (piece.type !== 'pawn') {
-            notation += piece.type.charAt(0).toUpperCase();
-            // Knight uses 'N' not 'K'
-            if (piece.type === 'knight') notation = 'N';
-        }
-        
-        // For captures, add 'x' and file for pawns
-        if (move.captured || move.enPassant) {
-            if (piece.type === 'pawn') {
-                notation += from.charAt(0); // File of origin
-            }
-            notation += 'x';
-        }
-        
-        // Destination square
-        notation += to;
-        
-        // Check or checkmate indicators
-        if (move.checkmate) {
-            notation += '#';
-        } else if (move.check) {
-            notation += '+';
-        }
-        
-        return notation;
-    }
-    
-    // Convert row, col to algebraic notation (e.g., 6,4 -> "e2")
-    coordsToAlgebraic(row, col) {
-        const files = 'abcdefgh';
-        const ranks = '87654321';
-        return files[col] + ranks[row];
-    }
-    
-    // Get formatted move history with turn numbers
-    getFormattedMoveHistory() {
-        const moves = [];
-        for (let i = 0; i < this.moveHistory.length; i += 2) {
-            const whiteMove = this.moveHistory[i];
-            const blackMove = this.moveHistory[i + 1];
-            
-            const moveNum = Math.floor(i / 2) + 1;
-            let notation = `${moveNum}. ${whiteMove.algebraic || '??'}`;
-            
-            if (blackMove) {
-                notation += ` ${blackMove.algebraic || '??'}`;
-            }
-            
-            moves.push(notation);
-        }
-        return moves;
     }
 
     // Update the game state (check, checkmate, stalemate)

@@ -165,20 +165,6 @@ class ChessUI {
         return this.boardElement.querySelector(`[data-row="${row}"][data-col="${col}"]`);
     }
     
-    
-    // Add method to update the move history display
-    updateMoveHistory(moveListElement) {
-        if (moveListElement) {
-            const history = this.game.getFormattedMoveHistory();
-            if (history.length === 0) {
-                moveListElement.innerHTML = '<em>No moves yet</em>';
-            } else {
-                moveListElement.innerHTML = history.join('<br>');
-            }
-        }
-    }
-
-    
     // Add a method to handle the reset button
     resetGame() {
         this.game.initialize();

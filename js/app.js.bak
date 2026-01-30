@@ -39,6 +39,5 @@ document.addEventListener('DOMContentLoaded', () => {
     };
     
     // Initial update of captured pieces display
-    ui.updateMoveHistory(moveListElement);
     ui.updateCapturedPieces(whiteCapturedElement, blackCapturedElement);
 });
