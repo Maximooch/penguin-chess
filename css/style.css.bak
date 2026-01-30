@@ -161,6 +161,30 @@ button:hover {
     background-color: #45a049;
 }
 
+.move-history {
+    margin: 10px 0;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    min-width: 300px;
+}
+
+.move-history h3 {
+    margin-bottom: 8px;
+    color: #333;
+    font-size: 14px;
+}
+
+#move-list {
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+    line-height: 1.6;
+    text-align: left;
+    max-height: 150px;
+    overflow-y: auto;
+}
+
 @media (max-width: 600px) {
     #chessboard {
         grid-template-columns: repeat(8, 40px);

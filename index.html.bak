@@ -11,6 +11,10 @@
         <div class="game-info">
             <h1>Browser Chess</h1>
             <div id="status">White to move</div>
+            <div id="move-history" class="move-history">
+                <h3>Move History</h3>
+                <div id="move-list"></div>
+            </div>
             <div id="captured-pieces">
                 <div id="captured-white" class="captured-area"></div>
                 <div id="captured-black" class="captured-area"></div>
