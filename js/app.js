@@ -12,8 +12,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const moveListElement = document.getElementById('move-list');
     const blackCapturedElement = document.getElementById('captured-black');
     
-    // Initialize UI
+    // Initialize UI and sounds
     const ui = new ChessUI(game, boardElement, statusElement);
+    const sounds = new ChessSounds();
     
     // Add event listeners for buttons
     resetButton.addEventListener('click', () => {
@@ -33,6 +34,22 @@ document.addEventListener('DOMContentLoaded', () => {
         const result = originalMovePiece.apply(this, args);
         if (result) {
             ui.updateCapturedPieces(whiteCapturedElement, blackCapturedElement);
+            
+            // Play sound based on move type
+            const lastMove = game.moveHistory[game.moveHistory.length - 1];
+            if (lastMove) {
+                if (lastMove.checkmate) {
+                    sounds.playCheckmate();
+                } else if (lastMove.check) {
+                    sounds.playCheck();
+                } else if (lastMove.captured) {
+                    sounds.playCapture();
+                } else if (lastMove.castling) {
+                    sounds.playCastle();
+                } else {
+                    sounds.playMove();
+                }
+            }
             
             // Check if promotion is needed
             const pendingPromotion = game.getPendingPromotion();

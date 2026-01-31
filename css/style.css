@@ -73,9 +73,52 @@ h1 {
     min-width: 150px;
 }
 
+.board-wrapper {
+    display: flex;
+    gap: 5px;
+}
+
+.rank-labels {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 2px 0;
+    font-family: 'Arial', sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    color: #666;
+    text-align: center;
+    min-width: 20px;
+}
+
+.rank-labels span {
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .board-container {
     position: relative;
+    display: flex;
+    flex-direction: column;
 }
+
+.file-labels {
+    display: flex;
+    justify-content: space-around;
+    padding: 5px 0;
+    font-family: 'Arial', sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    color: #666;
+}
+
+.file-labels span {
+    width: 60px;
+    text-align: center;
+}
+
 
 #chessboard {
     display: grid;
@@ -128,6 +171,14 @@ h1 {
 
 .highlight {
     background-color: rgba(255, 255, 0, 0.4) !important;
+}
+
+.last-move {
+    background-color: rgba(155, 199, 0, 0.6) !important;
+}
+
+.last-move-from {
+    background-color: rgba(155, 199, 0, 0.4) !important;
 }
 
 .possible-move {
@@ -288,8 +339,18 @@ button:hover {
         width: 100%;
         max-width: 480px;
     }
+    
+    .rank-labels {
+        font-size: 12px;
+        min-width: 16px;
+    }
+    
+    .rank-labels span,
+    .file-labels span {
+        height: 40px;
+        width: 40px;
+    }
 }
-
 @media (max-width: 600px) {
     #chessboard {
         grid-template-columns: repeat(8, 40px);
@@ -303,5 +364,9 @@ button:hover {
     
     .piece {
         font-size: 30px;
+    }
+    
+    .rank-labels span {
+        height: 40px;
     }
 }

@@ -14,8 +14,18 @@
         </div>
         
         <div class="main-content">
-            <div class="board-container">
-                <div id="chessboard"></div>
+            <div class="board-wrapper">
+                <div class="rank-labels">
+                    <span>8</span><span>7</span><span>6</span><span>5</span>
+                    <span>4</span><span>3</span><span>2</span><span>1</span>
+                </div>
+                <div class="board-container">
+                    <div id="chessboard"></div>
+                    <div class="file-labels">
+                        <span>a</span><span>b</span><span>c</span><span>d</span>
+                        <span>e</span><span>f</span><span>g</span><span>h</span>
+                    </div>
+                </div>
             </div>
             
             <div class="side-panel">
@@ -30,6 +40,16 @@
                 <div class="controls">
                     <button id="reset-btn">New Game</button>
                     <button id="undo-btn">Undo Move</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Pawn Promotion Modal -->
+        <div id="promotion-modal" class="modal hidden">
+            <div class="modal-content">
+                <h3>Choose Promotion Piece</h3>
+                <div class="promotion-pieces" id="promotion-pieces">
+                    <!-- Pieces will be inserted by JS -->
                 </div>
             </div>
         </div>

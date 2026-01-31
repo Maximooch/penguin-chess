@@ -6,6 +6,7 @@ class ChessUI {
         this.statusElement = statusElement;
         this.selectedSquare = null;
         this.possibleMoves = [];
+        this.lastMove = null;  // Track last move for highlighting
         
         // Unicode chess symbols
         this.pieceSymbols = {
@@ -59,8 +60,16 @@ class ChessUI {
         const squares = this.boardElement.querySelectorAll('.square');
         squares.forEach(square => {
             square.innerHTML = '';
-            square.classList.remove('highlight', 'possible-move', 'possible-capture');
+            square.classList.remove('highlight', 'possible-move', 'possible-capture', 'last-move', 'last-move-from');
         });
+        
+        // Highlight last move
+        if (this.lastMove) {
+            const fromSquare = this.getSquareElement(this.lastMove.from.row, this.lastMove.from.col);
+            const toSquare = this.getSquareElement(this.lastMove.to.row, this.lastMove.to.col);
+            if (fromSquare) fromSquare.classList.add('last-move-from');
+            if (toSquare) toSquare.classList.add('last-move');
+        }
         
         // Add pieces based on game state
         for (let row = 0; row < 8; row++) {
@@ -112,12 +121,20 @@ class ChessUI {
             
             if (moveIndex !== -1) {
                 // Make the move
-                this.game.movePiece(
+                const moveResult = this.game.movePiece(
                     this.selectedSquare.row, 
                     this.selectedSquare.col, 
                     row, 
                     col
                 );
+                
+                // Track last move for highlighting
+                if (moveResult) {
+                    this.lastMove = {
+                        from: { ...this.selectedSquare },
+                        to: { row, col }
+                    };
+                }
                 
                 // Reset selection
                 this.selectedSquare = null;
@@ -223,6 +240,7 @@ class ChessUI {
         this.game.initialize();
         this.selectedSquare = null;
         this.possibleMoves = [];
+        this.lastMove = null;
         this.updateBoard();
         this.updateStatus();
     }
