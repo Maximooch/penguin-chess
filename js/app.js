@@ -15,6 +15,16 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialize UI and sounds
     const ui = new ChessUI(game, boardElement, statusElement);
     const sounds = new ChessSounds();
+    let audioInitialized = false;
+    
+    // Initialize audio on first user interaction (browser requirement)
+    const initAudio = () => {
+        if (!audioInitialized) {
+            sounds.init();
+            audioInitialized = true;
+        }
+    };
+    document.addEventListener('click', initAudio, { once: true });
     
     // Add event listeners for buttons
     resetButton.addEventListener('click', () => {
