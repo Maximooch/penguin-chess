@@ -182,9 +182,14 @@ class ChessGame {
         this.board[toRow][toCol] = piece;
         this.board[fromRow][fromCol] = null;
         
-        // Pawn promotion (automatically to queen for simplicity)
+        // Check if pawn promotion is needed
         if (piece.type === 'pawn' && (toRow === 0 || toRow === 7)) {
-            this.board[toRow][toCol] = { type: 'queen', color: piece.color };
+            // Store pending promotion - will be completed via UI
+            this.pendingPromotion = {
+                row: toRow,
+                col: toCol,
+                color: piece.color
+            };
         }
         
         // Switch player
@@ -197,6 +202,32 @@ class ChessGame {
         // Generate algebraic notation
         const lastMove = this.moveHistory[this.moveHistory.length - 1];
         lastMove.algebraic = this.generateAlgebraicNotation(lastMove);
+        return true;
+    }
+
+    // Check if there's a pending pawn promotion
+    getPendingPromotion() {
+        return this.pendingPromotion;
+    }
+    
+    // Complete pawn promotion with chosen piece
+    promotePawn(pieceType) {
+        if (!this.pendingPromotion) return false;
+        
+        const { row, col, color } = this.pendingPromotion;
+        this.board[row][col] = { type: pieceType, color: color };
+        
+        // Update the move history with promotion info
+        if (this.moveHistory.length > 0) {
+            const lastMove = this.moveHistory[this.moveHistory.length - 1];
+            lastMove.promotion = pieceType;
+            // Regenerate notation with promotion
+            lastMove.algebraic = this.generateAlgebraicNotation(lastMove);
+        }
+        
+        // Clear pending promotion
+        this.pendingPromotion = null;
+        
         return true;
     }
 
@@ -377,5 +408,20 @@ class ChessGame {
         }
         return moves;
     }
-
+    
+    // Get current game status message
+    getGameStatus() {
+        if (this.checkmate) {
+            const winner = this.currentPlayer === 'white' ? 'Black' : 'White';
+            return `Checkmate! ${winner} wins!`;
+        }
+        if (this.stalemate) {
+            return 'Stalemate! Game is a draw.';
+        }
+        if (this.inCheck) {
+            return `${this.currentPlayer.charAt(0).toUpperCase() + this.currentPlayer.slice(1)} is in check!`;
+        }
+        return `${this.currentPlayer.charAt(0).toUpperCase() + this.currentPlayer.slice(1)} to move`;
+    }
+    
 }

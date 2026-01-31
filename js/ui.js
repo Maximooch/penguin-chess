@@ -166,6 +166,45 @@ class ChessUI {
     }
     
     
+
+    // Handle pawn promotion
+    showPromotionModal(callback) {
+        const modal = document.getElementById('promotion-modal');
+        const piecesContainer = document.getElementById('promotion-pieces');
+        const color = this.game.currentPlayer === 'white' ? 'black' : 'white'; // The player who moved
+        
+        // Clear previous
+        piecesContainer.innerHTML = '';
+        
+        // Define promotion options
+        const options = ['queen', 'rook', 'bishop', 'knight'];
+        
+        options.forEach(pieceType => {
+            const pieceElement = document.createElement('div');
+            pieceElement.className = 'promotion-piece';
+            pieceElement.textContent = this.pieceSymbols[color][pieceType];
+            pieceElement.dataset.piece = pieceType;
+            
+            pieceElement.addEventListener('click', () => {
+                callback(pieceType);
+                this.hidePromotionModal();
+                this.updateBoard();
+                this.updateStatus();
+                this.updateMoveHistory(document.getElementById('move-list'));
+            });
+            
+            piecesContainer.appendChild(pieceElement);
+        });
+        
+        modal.classList.remove('hidden');
+    }
+    
+    hidePromotionModal() {
+        const modal = document.getElementById('promotion-modal');
+        modal.classList.add('hidden');
+    }
+
+    
     // Add method to update the move history display
     updateMoveHistory(moveListElement) {
         if (moveListElement) {

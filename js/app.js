@@ -33,7 +33,17 @@ document.addEventListener('DOMContentLoaded', () => {
         const result = originalMovePiece.apply(this, args);
         if (result) {
             ui.updateCapturedPieces(whiteCapturedElement, blackCapturedElement);
-            ui.updateMoveHistory(moveListElement);
+            
+            // Check if promotion is needed
+            const pendingPromotion = game.getPendingPromotion();
+            if (pendingPromotion) {
+                ui.showPromotionModal((pieceType) => {
+                    game.promotePawn(pieceType);
+                    ui.updateMoveHistory(moveListElement);
+                });
+            } else {
+                ui.updateMoveHistory(moveListElement);
+            }
         }
         return result;
     };
