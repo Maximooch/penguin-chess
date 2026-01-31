@@ -368,6 +368,78 @@ button:hover {
 }
 
 
+
+/* Board Themes */
+body.wood {
+    background-color: #3d2314;
+}
+
+body.wood .game-container {
+    background-color: #5c3a1e;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+body.wood h1,
+body.wood #status {
+    color: #f0d9b5;
+}
+
+body.wood .move-history,
+body.wood .captured-area {
+    background-color: #4a2e18;
+    border-color: #6b4423;
+    color: #f0d9b5;
+}
+
+body.wood .move-history h3 {
+    color: #f0d9b5;
+    border-color: #6b4423;
+}
+
+body.green {
+    background-color: #2d4a3e;
+}
+
+body.green .game-container {
+    background-color: #3d6354;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+body.green h1,
+body.green #status {
+    color: #e8f5e9;
+}
+
+body.green .move-history,
+body.green .captured-area {
+    background-color: #2d4a3e;
+    border-color: #4a7c6f;
+    color: #e8f5e9;
+}
+
+body.green .move-history h3 {
+    color: #e8f5e9;
+    border-color: #4a7c6f;
+}
+
+/* Board color themes */
+body.wood .white {
+    background-color: #e6c9a8;
+}
+
+body.wood .black {
+    background-color: #8b5a2b;
+}
+
+body.green .white {
+    background-color: #e8f5e9;
+}
+
+body.green .black {
+    background-color: #2e7d32;
+}
+
+
 @media (max-width: 800px) {
     .main-content {
         flex-direction: column;
