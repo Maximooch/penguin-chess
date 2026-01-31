@@ -40,6 +40,7 @@
                 <div class="controls">
                     <button id="reset-btn">New Game</button>
                     <button id="undo-btn">Undo Move</button>
+                    <button id="settings-btn">Settings</button>
                 </div>
             </div>
         </div>
@@ -51,6 +52,28 @@
                 <div class="promotion-pieces" id="promotion-pieces">
                     <!-- Pieces will be inserted by JS -->
                 </div>
+            </div>
+        </div>
+        
+        <!-- Settings Modal -->
+        <div id="settings-modal" class="modal hidden">
+            <div class="modal-content">
+                <h3>Settings</h3>
+                <div class="settings-options">
+                    <label class="setting-item">
+                        <input type="checkbox" id="sound-toggle" checked>
+                        <span>Sound Effects</span>
+                    </label>
+                    <label class="setting-item">
+                        <span>Board Theme:</span>
+                        <select id="theme-select">
+                            <option value="classic">Classic</option>
+                            <option value="wood">Wood</option>
+                            <option value="green">Green</option>
+                        </select>
+                    </label>
+                </div>
+                <button id="close-settings" class="close-btn">Close</button>
             </div>
         </div>
     </div>

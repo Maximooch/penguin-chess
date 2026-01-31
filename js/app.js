@@ -65,7 +65,32 @@ document.addEventListener('DOMContentLoaded', () => {
         return result;
     };
     
-    // Initial update of captured pieces display
+
+    // Settings panel functionality
+    const settingsBtn = document.getElementById('settings-btn');
+    const settingsModal = document.getElementById('settings-modal');
+    const closeSettings = document.getElementById('close-settings');
+    const soundToggle = document.getElementById('sound-toggle');
+    const themeSelect = document.getElementById('theme-select');
+    
+    settingsBtn.addEventListener('click', () => {
+        settingsModal.classList.remove('hidden');
+    });
+    
+    closeSettings.addEventListener('click', () => {
+        settingsModal.classList.add('hidden');
+    });
+    
+    soundToggle.addEventListener('change', (e) => {
+        sounds.setEnabled(e.target.checked);
+    });
+    
+    themeSelect.addEventListener('change', (e) => {
+        document.body.className = e.target.value;
+    });
+
+    
+        // Initial update of captured pieces display
     ui.updateMoveHistory(moveListElement);
     ui.updateCapturedPieces(whiteCapturedElement, blackCapturedElement);
 });
